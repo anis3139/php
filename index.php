@@ -1,33 +1,51 @@
 <?php
 
+$name="Lima";
+$age=180;
+
+// printf('My name is %s. I am %.3f years old', $name, $age);
+
+
 /**
- * count word/character
- * word/character position
- * chracter slice
- * word/ charecter replace
- * reverce
- */
+ 
+if($age == 180):
+?>
 
-// $x = 'hello world   '; 
-// $arr=ltrim($x);
-// echo ucfirst($arr);
+  <h2>Hello World from if</h2>
 
-// $number = 9;
-// $str = "Beijing";
-// printf("There are %u million bicycles in %s.",$number,$str);
+<?php
+elseif(true):
 
-// $str = "Hello World";
-// echo str_pad($str,20," ....");
+else:
+    ?>
+    <h4>Content not found</h4>
+<?php
+endif;
+
+*/
+
+// switch (18) {
+//     case '25':
+//         echo "I am Young";
+//         break;
+//     case '18':
+//         echo "I am adult";
+//         break;
+//     case '13':
+//         echo "I am childrean";
+//         break;
+//     default:
+//        echo "this is default value";
+//         break;
+// }
+
+ 
+
+// $marks=40;
+// print ($marks>=40) ? "pass" : "Fail";
 
 
-// echo ucwords("I love php, I love php too!");
-
-
-// $arr=['mangoo', 'banana', 'orange'];
-// echo implode('-', $arr);
-
-$str='hello world';           
-echo print_r(explode(' ', $str));
-
-$arr = array('Hello','World!','Beautiful','Day!');
-echo join("- ",$arr);
+ 
+echo $user = $_GET["user"] ?? "anonymous"; 
+  
+ 
