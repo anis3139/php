@@ -134,6 +134,8 @@ $res=$stripe->accounts->all(['limit' => 3]);
 /**
  * Charges
  */
+
+ 
 // https://connect.stripe.com/oauth/v2/authorize?response_type=code&client_id=ca_LnNcXzYxJGsZ2Icy9TJ1Ny1iFtwcef35&scope=read_write
 
 
