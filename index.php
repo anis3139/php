@@ -1,33 +1,47 @@
 <?php
-
+ 
 /**
- * count word/character
- * word/character position
- * chracter slice
- * word/ charecter replace
- * reverce
+ * Its return Addition
+ *
+ * @param integer $num1
+ * @param integer $num2
+ * @return integer
  */
+// function testFunction(int $num1, int $num2):int{
+//      return  $num1+$num2;
+// }
 
-// $x = 'hello world   '; 
-// $arr=ltrim($x);
-// echo ucfirst($arr);
-
-// $number = 9;
-// $str = "Beijing";
-// printf("There are %u million bicycles in %s.",$number,$str);
-
-// $str = "Hello World";
-// echo str_pad($str,20," ....");
+// $result=testFunction(12, 40);
+// echo $result;
 
 
-// echo ucwords("I love php, I love php too!");
 
+// $arr=[1,2,3,4,5];
 
-// $arr=['mangoo', 'banana', 'orange'];
-// echo implode('-', $arr);
+// echo $arr[3];
 
-$str='hello world';           
-echo print_r(explode(' ', $str));
+// for ($i=0; $i < count($arr) ; $i++) { 
+//     echo $arr[$i]."\n";
+// }
 
-$arr = array('Hello','World!','Beautiful','Day!');
-echo join("- ",$arr);
+// $a=0;
+// while ($a <= 10) {
+//     echo "hello world";
+
+//     $a++;
+// }
+
+$arr=["name"=>"anis", "age"=>23, "class"=>"eight", "dist"=>"comilla", "city"=>"dhaka" ];
+
+foreach ($arr as  $key=>$value) {
+    if($key=='class'){
+        continue;
+    }
+    
+    echo $key."=".$value.PHP_EOL;
+    
+    if ($key=='dist') {
+        break;
+    }
+}
+
