@@ -1,6 +1,16 @@
 
   <?php
     require_once('./header.php');
+
+
+    if (isset($_REQUEST['id'])) {
+        $delID= $_REQUEST['id'];
+        $delSql="DELETE FROM students WHERE id={$delID}";
+        $res= mysqli_query($mysql, $delSql);
+        if ($res) {
+            header("Location: ./index.php");
+        }
+    }
    
   ?>
           
@@ -19,6 +29,7 @@
                 <th scope="col">Last</th>
                 <th scope="col">Handle</th>
                 <th scope="col">Edit</th>
+                <th scope="col">Delete</th>
               </tr>
             </thead>
             <tbody>
@@ -31,7 +42,8 @@
                 <td><?php echo $students['name'];?></td>
                 <td><?php echo $students['class'];?></td>
                 <td><?php echo isset($students['district'])?$students['district']:'Not Set';?> </td>
-                <td><a href="./edit.php?id=<?php echo $students['id']?>">Edit</a></td>
+                <td><a class="text-success" href="./edit.php?id=<?php echo $students['id']?>">Edit</a></td>
+                <td><a onClick="return confirm('Delete This account?')" class="text-danger" href="./index.php?id=<?php echo $students['id']?>">Delete</a></td>
               </tr>
                 <?php
                 endwhile;

@@ -18,5 +18,4 @@
   } else {
       header("Location: ./edit.php");
   }
-
-mysqli_close($mysql);
+ 
