@@ -8,6 +8,8 @@
   try {
       $sql="UPDATE students SET name= '{$name}', class= '{$class}', district='{$district}' WHERE id={$id}" ;
 
+      echo $sql;
+
       $result=mysqli_query($mysql, $sql);
   } catch (\Throwable $th) {
       throw $th->getMessage();

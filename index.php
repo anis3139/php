@@ -3,9 +3,11 @@
     require_once('./header.php');
 
 
-    if (isset($_REQUEST['id'])) {
-        $delID= $_REQUEST['id'];
-        $delSql="DELETE FROM students WHERE id={$delID}";
+    if (isset($_REQUEST['delID'])) {
+        $delID= $_REQUEST['delID'];
+        $name= $_REQUEST['name'];
+        
+        $delSql="DELETE FROM students WHERE id={$delID} AND name='{$name}'";
         $res= mysqli_query($mysql, $delSql);
         if ($res) {
             header("Location: ./index.php");
@@ -13,11 +15,12 @@
     }
    
   ?>
+ 
           
         <div class="container table-responsive py-5"> 
           <a href="./add.php" class="btn btn-primary btn-lg add-btn" >Add new</a>
           <?php
-            $sql= 'SELECT * FROM students';
+            $sql= 'SELECT id, name, class, district as d FROM students WHERE name IS NOT NULL ORDER BY name ASC ';
                 $result=mysqli_query($mysql, $sql) or die('no result found');
                 if (mysqli_num_rows($result)>0):
                 ?>
@@ -25,9 +28,9 @@
             <thead class="thead-dark">
               <tr>
                 <th scope="col">#</th>
-                <th scope="col">First</th>
-                <th scope="col">Last</th>
-                <th scope="col">Handle</th>
+                <th scope="col">Name</th>
+                <th scope="col">Class</th>
+                <th scope="col">District</th>
                 <th scope="col">Edit</th>
                 <th scope="col">Delete</th>
               </tr>
@@ -41,9 +44,11 @@
                 <td scoppe='row'><?php echo $students['id'];?></td>
                 <td><?php echo $students['name'];?></td>
                 <td><?php echo $students['class'];?></td>
-                <td><?php echo isset($students['district'])?$students['district']:'Not Set';?> </td>
+                <td><?php echo isset($students['d'])?$students['d']:'Not Set';?> </td>
                 <td><a class="text-success" href="./edit.php?id=<?php echo $students['id']?>">Edit</a></td>
-                <td><a onClick="return confirm('Delete This account?')" class="text-danger" href="./index.php?id=<?php echo $students['id']?>">Delete</a></td>
+
+                <td> <a onClick="return confirm('Delete This account?')" class="text-danger" href="./index.php?delID=<?php echo $students['id']?>&name=<?php echo $students['name'];?>">Delete</a></td>
+
               </tr>
                 <?php
                 endwhile;
