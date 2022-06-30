@@ -11,7 +11,7 @@ $mysql= mysqli_connect('localhost', 'anis', 'password', 'school') or die('Connec
   if( $result){
       header("Location: ./index.php");
   }else{
-    header("Location: ./add.php");
+    header("Location: ./add-students.php");
   }
 
 mysqli_close($mysql);

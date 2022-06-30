@@ -7,8 +7,7 @@
 
   try {
       $sql="UPDATE students SET name= '{$name}', class= '{$class}', district='{$district}' WHERE id={$id}" ;
-
-      echo $sql;
+ 
 
       $result=mysqli_query($mysql, $sql);
   } catch (\Throwable $th) {
@@ -18,6 +17,6 @@
   if ($result) {
       header("Location: ./index.php");
   } else {
-      header("Location: ./edit.php");
+      header("Location: ./edit-students.php");
   }
  
