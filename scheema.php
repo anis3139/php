@@ -24,7 +24,7 @@ $sql2="CREATE TABLE users (
     id INT UNSIGNED NOT NULL AUTO_INCREMENT,
     name VARCHAR(100) NOT NULL,
 	password VARCHAR(100) NOT NULL ,
-	email VARCHAR(100) NOT NULL,
+	email VARCHAR(100) NOT NULL UNIQUE,
 	phone VARCHAR(50) NOT NULL,
 	gender tinyint NOT NULL,
 	dob timestamp,

@@ -51,7 +51,7 @@
                 }
             } else {
                 $_SESSION['login']=false;
-                $_SESSION['error']="email or password dosn't match";
+                $_SESSION['error']="User not found";
                 $_SESSION['expire'] = time() + $inactive;
                 header('location:login.php');
             }

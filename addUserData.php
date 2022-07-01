@@ -11,7 +11,7 @@ require_once('./validation.php');
 
   $sql="INSERT INTO `users` (`name`, `password`, `email`, `phone`, `dob`, `gender`, `role`)
                       VALUES ( '{$name}', '{$password}', '{$email}', '{$phone}', '{$dob}', '{$gender}', '{$role}' )" ;
- echo $sql;
+ 
   $result=mysqli_query($mysql, $sql) or die("insert failed");
   
   if ($result) {

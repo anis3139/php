@@ -11,7 +11,13 @@
     </div>
 
 </div>
-<?php  include('./registrationForm.php') ;?>
+<div class="row p-5 pt-2">
+    <div class="col-md-10 offset-md-1 mt-2">
+        <form action="./addUserData.php" method="POST">
+            <?php  include('./registrationForm.php') ;?>
+        </form>
+    </div>
+</div>
 
 
 <?php require_once('./footer.php');
