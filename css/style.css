@@ -30,5 +30,7 @@
   text-decoration: none;
   color: #fff;
 } 
- 
+th, td {
+  padding: 10px;
+}
  

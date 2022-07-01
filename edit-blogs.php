@@ -25,26 +25,42 @@ require_once('./header.php');
 </div>
 <div class="row">
     <div class="col-md-10 offset-md-1">
-        <form action="./UpdateBlogData.php" method="POST">
+        <form action="./UpdateBlogData.php" method="POST" enctype="multipart/form-data">
             <input type="hidden" name="id"
                 value="<?php echo $blog['id'];?>">
+
             <div class="mb-3">
-                <label for="name" class="form-label">Name</label>
-                <input type="text" class="form-control" id="name" name="name"
-                    value="<?php echo $blog['name'];?>">
+                <label for="title" class="form-label">Title</label>
+                <input
+                    value="<?php echo isset($blog['title'])?nl2br($blog['title']):'' ?>"
+                    required type="text" class="form-control" id="title" name="title">
             </div>
             <div class="mb-3">
-                <label for="class" class="form-label">Class</label>
-                <input type="text" class="form-control" id="class" name="class"
-                    value="<?php echo $blog['class'];?>">
+                <label for="description" class="form-label">Description</label>
+                <textarea required type="text" class="form-control" id="description"
+                    name="description"><?php echo isset($blog['description'])?nl2br($blog['description']):'' ?></textarea>
             </div>
-            <div class="mb-3">
-                <label for="district" class="form-label">District</label>
-                <input type="text" class="form-control" id="district" name="district"
-                    value="<?php echo $blog['district'];?>">
+            <div class="mb-3 row">
+                <div class="col-md-6">
+                    <label for="image" class="form-label">image</label>
+                    <input type="file" class="form-control" id="image" name="image">
+                    <button type="submit" class="btn btn-primary btn-lg mt-5">Update</button>
+                </div>
+                <div class="col-md-6 text-center">
+                    <?php
+                    $path= $blog['image'];
+                    if ($path) {
+                        $fullPath=$protocol.$_SERVER['HTTP_HOST'].$path;
+                    } else {
+                        $fullPath='./images/placeholder-image.png';
+                    }
+                    ?>
+                    <img width="200px" src="<?php echo $fullPath;?>"
+                        alt="">
+                </div>
+
             </div>
 
-            <button type="submit" class="btn btn-primary">Update</button>
         </form>
     </div>
 </div>

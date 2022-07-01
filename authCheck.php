@@ -1,6 +1,7 @@
 <?php
 //mysql connection
  require_once('./config.php');
+ $protocol=strtolower(substr($_SERVER["SERVER_PROTOCOL"], 0, strpos($_SERVER["SERVER_PROTOCOL"], '/'))).'://';
 // check valied user
 $isLogin=$_SESSION['login'];
 $token=$_SESSION['token'];
@@ -15,13 +16,13 @@ if (mysqli_num_rows($loginResult)==0 || md5($logedInUser['email']) != $token || 
     header('location:login.php');
 }
 //roll and permission
-$isAdmin;
-$isUser;
-if ($logedInUser['role'] == 'admin') {
+$isAdmin=false;
+$isUser=false;
+$isSuperAdmin=false;
+if ($logedInUser['role'] == 'super-admin') {
+    $isSuperAdmin=true;
+} elseif ($logedInUser['role'] == 'admin') {
     $isAdmin=true;
-    $isUser=false;
 } elseif ($logedInUser['role'] == 'user') {
-    $isAdmin=false;
     $isUser=true;
 }
-

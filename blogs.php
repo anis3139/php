@@ -3,12 +3,15 @@
    
     if (isset($_REQUEST['delID'])) {
         $delID= $_REQUEST['delID'];
-        $name= $_REQUEST['name'];
+        $delImg= '.'.$_REQUEST['delImg'];
         
-        $delSql="DELETE FROM blogs WHERE id={$delID} AND name='{$name}'";
+        $delSql="DELETE FROM blogs WHERE id={$delID}";
+        if (file_exists($delImg)) {
+            unlink($delImg);
+        }
         $res= mysqli_query($mysql, $delSql);
         if ($res) {
-            header("Location: ./index.php");
+            header("Location: ./blogs.php");
         }
     }
 
@@ -19,26 +22,22 @@
 <div class="container table-responsive py-5">
 
     <div class="text-end my-2">
-         <a href="./add-blogs.php" class="btn btn-primary btn-lg add-btn">Add Blog</a>
+        <a href="./add-blogs.php" class="btn btn-primary btn-lg add-btn">Add Blog</a>
     </div>
     <?php
-            $sql= 'SELECT id, name, class, district as d FROM blogs WHERE name IS NOT NULL ORDER BY name ASC limit 100';
+            $sql= "SELECT * FROM blogs WHERE `user_id`='{$logedInUser['id']}' ORDER BY id DESC limit 100";
                 $result=mysqli_query($mysql, $sql) or die('no result found');
                 if (mysqli_num_rows($result)>0):
                 ?>
     <table class="table table-bordered table-hover">
         <thead class="thead-dark">
             <tr>
-                <th scope="col">#</th>
-                <th scope="col">Name</th>
-                <th scope="col">Class</th>
-                <th scope="col">District</th>
-                <?php  if ($isAdmin): ;?>
-                <th scope="col">Edit</th>
-                <?php  endif  ;?>
-                <?php  if ($isAdmin): ;?>
-                <th scope="col">Delete</th>
-                <?php  endif  ;?>
+                <th class="w-5" scope="col">#</th>
+                <th class="w-15" scope="col">Title</th>
+                <th class="w-45" scope="col">Description</th>
+                <th class="w-20" scope="col">Image</th>
+                <th class="w-7" scope="col">Edit</th>
+                <th class="w-8" scope="col">Delete</th>
             </tr>
         </thead>
         <tbody>
@@ -49,24 +48,26 @@
             <tr>
                 <td scoppe='row'><?php echo $blogs['id'];?>
                 </td>
-                <td><?php echo $blogs['name'];?>
+                <td><?php echo nl2br($blogs['title']);?>
                 </td>
-                <td><?php echo $blogs['class'];?>
+                <td><?php echo nl2br($blogs['description']);?>
                 </td>
-                <td><?php echo isset($blogs['d'])?$blogs['d']:'Not Set';?>
                 </td>
-                <?php  if ($isAdmin): ;?>
+                <td scoppe='row' class="text-center">
+                    <?php
+                 $path= $blogs['image'];
+                 $fullPath=$protocol.$_SERVER['HTTP_HOST'].$path;
+                 ?>
+                    <img width="150px" src="<?php echo $fullPath;?>"
+                        alt="">
                 <td>
                     <a class="text-success"
                         href="./edit-blogs.php?id=<?php echo $blogs['id']?>">Edit</a>
                 </td>
-                <?php  endif  ;?>
-                <?php  if ($isAdmin): ;?>
                 <td>
                     <a onClick="return confirm('Delete This Blogs?')" class="text-danger"
-                        href="./index.php?delID=<?php echo $blogs['id']?>&name=<?php echo $blogs['name'];?>">Delete</a>
+                        href="./blogs.php?delID=<?php echo $blogs['id']?>&delImg=<?php echo $path;?>">Delete</a>
                 </td>
-                <?php  endif  ;?>
 
             </tr>
             <?php

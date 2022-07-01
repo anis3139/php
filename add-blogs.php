@@ -14,7 +14,7 @@
 </div>
 <div class="row">
     <div class="col-md-10 offset-md-1">
-        <form action="./addBlogsData.php" method="POST">
+        <form action="./addBlogsData.php" method="POST" enctype="multipart/form-data">
             <div class="mb-3">
                 <label for="title" class="form-label">Title</label>
                 <input required type="text" class="form-control" id="title" name="title">
