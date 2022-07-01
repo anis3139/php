@@ -6,7 +6,7 @@
     $district=$_POST['district'];
 
   try {
-      $sql="UPDATE students SET name= '{$name}', class= '{$class}', district='{$district}' WHERE id={$id}" ;
+      $sql="UPDATE blogs SET name= '{$name}', class= '{$class}', district='{$district}' WHERE id={$id}" ;
  
 
       $result=mysqli_query($mysql, $sql);
@@ -15,8 +15,8 @@
   }
   
   if ($result) {
-      header("Location: ./students.php");
+      header("Location: ./blogs.php");
   } else {
-      header("Location: ./edit-students.php");
+      header("Location: ./edit-blogs.php");
   }
  

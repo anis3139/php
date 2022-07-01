@@ -17,10 +17,9 @@
 <body>
 
     <?php
-    session_start();
-    
-    $inactive = 5;
+   
      require_once('./config.php');
+     require_once('./session.php');
 
     if (isset($_SESSION['login']) && $_SESSION['login']=='success') {
         header('location:index.php');
@@ -37,14 +36,12 @@
                 header("location: recover.php?email={$userResult['email']}&phone={$userResult['phone']}");
             } else {
                 $_SESSION['login']=false;
-                $_SESSION['error']="email or phone dosn't match";
-                $_SESSION['expire'] = time() + $inactive;
+                alertMessage('error', "email or phone dosn't match");
                 header('location:login.php');
             }
         } else {
             $_SESSION['login']=false;
-            $_SESSION['error']="Email and phone required";
-            $_SESSION['expire'] = time() + $inactive;
+            alertMessage('error', "Email and phone required");
             header('location:login.php');
         }
     }
@@ -90,22 +87,6 @@
         </div>
     </div>
 
-
-    <?php
-           
-           if (isset($_SESSION['expire']) && time() > $_SESSION['expire']) {
-               if (isset($_SESSION['error'])) {
-                   unset($_SESSION['error']);
-               }
-           }
-       ?>
-
-
-    <script>
-        function closeAlert() {
-            window.location = "./signout.php";
-        }
-    </script>
 
 
 </body>

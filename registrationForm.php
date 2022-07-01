@@ -21,10 +21,18 @@
 </div>
 
 <div class="mb-2">
+    <?php
+   $date = new DateTime();
+   $date->modify('-216 month');
+   $time=$date->format('Y-m-d');
+    ?>
     <label for="dob" class="form-label">Date of Birth</label>
-    <input required type="date" class="form-control form-field" id="dob" name="dob">
+    <input required type="date" class="form-control form-field"
+        max="<?php echo $time;?>" id="dob" name="dob">
 </div>
-
+<?php
+  if (isset($route) && $route !='registration.php') :
+     ?>
 <div class="mb-2">
     <label for="role" class="form-label">Role</label>
     <select name="role" required id="role" class="form-control form-field">
@@ -34,6 +42,11 @@
         <option value="editor">editor</option>
     </select>
 </div>
+
+<?php
+  endif;
+?>
+
 
 <div class="mb-2">
     <label for="password" class="form-label">Password</label>

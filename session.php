@@ -2,6 +2,20 @@
 
 session_start();
 
+
+/**
+ * Show Alert Message
+ *
+ * @param string $type
+ * @param string $message
+ * @return void
+ */
+function alertMessage(string $type, string $message):void
+{
+    $_SESSION[$type]=$message;
+    $_SESSION['expire'] = time() + 5;
+}
+
 //Set the session duration for 5 seconds
 $duration = 7200;
 
@@ -23,12 +37,20 @@ if (isset($_SESSION['LAST_ACTIVITY']) &&  ($time - $_SESSION['LAST_ACTIVITY']) >
 //Set the time of the user's last activity
 $_SESSION['LAST_ACTIVITY'] = $time;
 
+// alert message destroy by key
+if (isset($_SESSION['expire']) && time() > $_SESSION['expire']) {
+    if (isset($_SESSION['error'])) {
+        unset($_SESSION['error']);
+    }
+    if (isset($_SESSION['success'])) {
+        unset($_SESSION['success']);
+    }
+}
+?>
 
-
-
-
-
-
-
-
-;
+<!--  alert message destroy all -->
+<script>
+    function closeAlert() {
+        window.location = "./signout.php";
+    }
+</script>

@@ -1,10 +1,10 @@
 <?php
  require_once('./config.php');
-$sql="CREATE TABLE students ( 
+$sql="CREATE TABLE blogs ( 
     id INT UNSIGNED NOT NULL AUTO_INCREMENT,
-    name VARCHAR(100) NOT NULL,
-    class VARCHAR(50) NOT NULL , 
-    district VARCHAR(50) NOT NULL,
+    title VARCHAR(255) NOT NULL,
+    description LONGTEXT, 
+    image VARCHAR(200),
     user_id INT NULL,
     created_at timestamp DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (id)
@@ -28,7 +28,7 @@ $sql2="CREATE TABLE users (
 	phone VARCHAR(50) NOT NULL,
 	gender tinyint NOT NULL,
 	dob timestamp,
-	role VARCHAR(50) DEFAULT 'user',
+	role ENUM('super-admin','admin', 'editor', 'author', 'user', 'subscriber') DEFAULT 'user',
 	created_at timestamp DEFAULT CURRENT_TIMESTAMP,
     INDEX (gender, role),
     PRIMARY KEY (id)
@@ -41,6 +41,11 @@ $sql3="CREATE TABLE wallets (
     created_at timestamp DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (id)
   )";
+$password=password_hash(123456, PASSWORD_BCRYPT);
+$superAdminSeed="INSERT INTO users 
+    (`name`, `password`, `email`, `phone`, `dob`, `gender`, `role`) 
+    VALUES 
+    ('Anis', '{$password}','anis904692@gmail.com','01816366535','2000-07-14', '1' ,'super-admin')";
 
 function truncateTable($mysql, $tableName)
 {
@@ -61,15 +66,16 @@ function drop_table($table)
     }
 }
 try {
-    drop_table('students');
+    drop_table('blogs');
     drop_table('address');
     drop_table('users');
     drop_table('wallets');
     mysqli_query($mysql, $sql) or die("something wrong");
     mysqli_query($mysql, $sql1) or die("something wrong ১");
-    mysqli_query($mysql, $sql2) or die("something wrong ২");
+    mysqli_query($mysql, $sql2)or die("something wrong 2");
     mysqli_query($mysql, $sql3) or die("something wrong ৩");
-    echo 'success <br/>';
+    mysqli_query($mysql, $superAdminSeed) or die("super admin not created");
+    echo 'success';
 } catch (\Throwable $th) {
     throw $th->getMessage();
 }

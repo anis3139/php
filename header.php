@@ -26,9 +26,7 @@
   <?php
 
 require_once('./session.php');
-
-// error message time second
-$inactive = 5;
+ 
 
 //check route
 
@@ -65,9 +63,9 @@ if (isset($_REQUEST['logout'])) {
           </li>
 
           <li class="nav-item">
-            <a class="nav-link <?php echo $route=='students'? 'active':'' ;?>"
+            <a class="nav-link <?php echo $route=='blogs'? 'active':'' ;?>"
               aria-current="
-              page" href="./students.php">Students</a>
+              page" href="./blogs.php">Blogs</a>
           </li>
 
         </ul>
@@ -79,7 +77,7 @@ if (isset($_REQUEST['logout'])) {
             <?php  if (isset($_SESSION['name'])): ;?>
             <li>
               <?php  echo   $_SESSION['name']; ?>
-              ( <?php  echo   $_SESSION['role']; ?>)
+              <span style="text-transform:capitalize;"> ( <?php  echo   $_SESSION['role']; ?>)</span>
             </li>
             <?php  endif ;?>
             <li>
