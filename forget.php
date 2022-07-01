@@ -19,7 +19,7 @@
     <?php
     session_start();
     
-    $inactive = 10;
+    $inactive = 5;
     $mysql= mysqli_connect('localhost', 'anis', 'password', 'school') or die('Connection Error');
 
     if (isset($_SESSION['login']) && $_SESSION['login']=='success') {

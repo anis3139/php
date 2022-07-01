@@ -1,7 +1,7 @@
 <?php
 require_once('./validation.php');
 require_once('./session.php');
-$inactive = 10;
+$inactive = 5;
     if (isset($_POST['email']) && isset($_POST['password']) && isset($_POST['phone'])) {
         $requestEmail=inputValidation($_POST['email']);
         $requestPhone=inputValidation($_POST['phone']);

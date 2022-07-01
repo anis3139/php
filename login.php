@@ -19,7 +19,7 @@
      <?php
     session_start();
     
-    $inactive = 10;
+    $inactive = 5;
     $mysql= mysqli_connect('localhost', 'anis', 'password', 'school') or die('Connection Error');
 
     if (isset($_SESSION['login']) && $_SESSION['login']=='success') {
@@ -40,6 +40,8 @@
                     $_SESSION['role']=$userResult['role'];
                     $_SESSION['email']=trim($userResult['email']);
                     $_SESSION['token']=md5($userResult['email']);
+                    $_SESSION['success']="Login Successfull";
+                    $_SESSION['expire'] = time() + $inactive;
                     header('location:index.php');
                 } else {
                     $_SESSION['login']=false;
@@ -65,22 +67,7 @@
 
 
      <div class="row">
-         <div class="col-md-8 offset-md-2 error-div mt-3">
-             <?php
-            if (isset($_SESSION['error'])):
-                                        ?>
-             <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                 <strong>Error!</strong> <?php  echo  $_SESSION['error']; ?>
-                 <button type="button" class="btn-close" onclick="closeAlert()"></button>
-             </div>
-             <?php  elseif (isset($_SESSION['success'])): ?>
-             <div class="alert alert-success alert-dismissible fade show" role="alert">
-                 <strong>Success!</strong> <?php  echo  $_SESSION['success']; ?>
-                 <button type="button" class="btn-close" onclick="closeAlert()"></button>
-             </div>
-             <?php
-            endif;?>
-         </div>
+         <?php  include('./errorMessage.php') ;?>
          <div class="col-lg-12">
              <div class="wrapper">
                  <div class="logo">

@@ -3,6 +3,7 @@
   ?>
 
 <div class="row m-5">
+  <?php  include('./errorMessage.php') ;?>
   <h1>Welcome to Dashborad </h1>
 </div>
 

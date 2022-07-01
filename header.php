@@ -9,6 +9,16 @@
     integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
   <title>Document</title>
   <link rel="stylesheet" href="./css/style.css">
+  <style>
+    .logout-div {
+      list-style-type: none;
+    }
+
+    .logout-div li {
+      list-style: none;
+      margin-bottom: 7px;
+    }
+  </style>
 </head>
 
 <body>
@@ -18,7 +28,7 @@
 require_once('./session.php');
 
 // error message time second
-$inactive = 15;
+$inactive = 5;
 
 //check route
 
@@ -65,15 +75,20 @@ if (isset($_REQUEST['logout'])) {
           <a href="#">
             <img class="rounded-circle" src="./images/download.png" width="50px" height="50px" alt="">
           </a>
-          <div class="logout-div">
+          <ul class="logout-div">
             <?php  if (isset($_SESSION['name'])): ;?>
-            <p>
+            <li>
               <?php  echo   $_SESSION['name']; ?>
               ( <?php  echo   $_SESSION['role']; ?>)
-            </p>
+            </li>
             <?php  endif ;?>
-            <a href="./?logout" onclick="return confirm('Are u sure?')">Logout</a>
-          </div>
+            <li>
+              <a href="./password-reset.php" class="text-info">Reset Password</a>
+            </li>
+            <li>
+              <a href="./?logout" class="text-danger" onclick="return confirm('Are u sure?')">Logout</a>
+            </li>
+          </ul>
         </div>
       </div>
     </div>
