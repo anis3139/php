@@ -1,5 +1,6 @@
 <?php
      require_once('./config.php');
+     require_once('./authCheck.php');
     $id=$_POST['id'];
     $title=$_POST['title'];
     $description=$_POST['description'];

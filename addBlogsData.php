@@ -2,6 +2,7 @@
 require_once('./config.php');
 require_once('./validation.php');
 require_once('./session.php');
+require_once('./authCheck.php');
   $title=inputValidation($_POST['title']);
   $description=inputValidation($_POST['description']);
   $user_id=inputValidation($_POST['user_id']);

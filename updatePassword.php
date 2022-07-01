@@ -1,6 +1,7 @@
 <?php
 require_once('./validation.php');
 require_once('./session.php');
+require_once('./authCheck.php');
     if (isset($_POST['email']) && isset($_POST['password']) && isset($_POST['phone'])) {
         $requestEmail=inputValidation($_POST['email']);
         $requestPhone=inputValidation($_POST['phone']);
@@ -17,7 +18,7 @@ require_once('./session.php');
                     header("Location: ./login.php");
                 } else {
                     $_SESSION['login']=false;
-                    alertMessage('error', "Something went wrong!"); 
+                    alertMessage('error', "Something went wrong!");
                     header("Location: ./recover.php?email=$requestEmail&phone=$requestPhone");
                 }
             } else {
@@ -29,6 +30,6 @@ require_once('./session.php');
         }
     } else {
         $_SESSION['login']=false;
-        alertMessage('error', "Something went wrong..!"); 
+        alertMessage('error', "Something went wrong..!");
         header("Location: ./recover.php?email=$requestEmail&phone=$requestPhone");
     }

@@ -1,5 +1,6 @@
 <?php
      require_once('./config.php');
+    //  require_once('./authCheck.php');
     $id=$_POST['id'];
     $name=$_POST['name'];
     $phone=$_POST['phone'];
@@ -16,7 +17,7 @@
       dob='{$dob}'
       WHERE id={$id}" ;
 
-      $result=mysqli_query($mysql, $sql); 
+      $result=mysqli_query($mysql, $sql);
   } catch (\Throwable $th) {
       throw $th->getMessage();
   }
