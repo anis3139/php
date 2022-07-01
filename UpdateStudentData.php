@@ -15,7 +15,7 @@
   }
   
   if ($result) {
-      header("Location: ./index.php");
+      header("Location: ./students.php");
   } else {
       header("Location: ./edit-students.php");
   }

@@ -10,13 +10,22 @@ require_once('./header.php');
         if (mysqli_num_rows($result)==0):
                 header("Location: user.php");
         else:
-            $user=mysqli_fetch_assoc($result); 
+            $user=mysqli_fetch_assoc($result);
 ?>
-<div class=" text-center mt-2">
-    <h1>Edit Users (<?php echo $user['name'];?>)</h1>
+
+<div class="d-flex gap-3 justify-content-end m-5">
+
+    <div class=" flex-grow-1 text-center">
+        <h2>Edit User (<?php echo $user['name'];?>)</h2>
+    </div>
+    <div>
+        <a href="./user.php" class="btn btn-primary btn-lg">User List</a>
+
+    </div>
+
 </div>
 <div class="row">
-    <div class="col-md-10 offset-md-1 mt-5">
+    <div class="col-md-10 offset-md-1">
         <form action="./UpdateUserData.php" method="POST">
             <input type="hidden" name="id"
                 value="<?php echo $user['id'];?>">
@@ -27,7 +36,7 @@ require_once('./header.php');
             </div>
             <div class="mb-3">
                 <label for="email" class="form-label">Email</label>
-                <input type="text" class="form-control" id="email" name="email"
+                <input readonly type="text" class="form-control" id="email"
                     value="<?php echo $user['email'];?>">
             </div>
             <div class="mb-3">
@@ -49,20 +58,23 @@ require_once('./header.php');
 
             <div class="mb-2">
                 <label for="dob" class="form-label">Date of Birth</label>
-                <input required type="date" 
-                value="<?php echo date('Y-m-j',strtotime($user['dob']));?>"
-                 class="form-control" id="dob" name="dob">
+                <input required type="date"
+                    value="<?php echo date('Y-m-j', strtotime($user['dob']));?>"
+                    class="form-control" id="dob" name="dob">
             </div>
 
             <div class="mb-2">
                 <label for="role" class="form-label">Role</label>
                 <select name="role" required id="role" class="form-control">
-                    <option value="user" <?php echo  $user['role']=='user'?'selected':''  ;?> >user</option>
-                    <option value="admin" <?php echo  $user['role']=='admin'?'selected':''  ;?> >admin</option>
-                    <option value="editor" <?php echo  $user['role']=='editor'?'selected':''  ;?> >editor</option>
+                    <option value="user" <?php echo  $user['role']=='user'?'selected':''  ;?>
+                        >user</option>
+                    <option value="admin" <?php echo  $user['role']=='admin'?'selected':''  ;?>
+                        >admin</option>
+                    <option value="editor" <?php echo  $user['role']=='editor'?'selected':''  ;?>
+                        >editor</option>
                 </select>
             </div>
- 
+
 
             <button type="submit" class="btn btn-primary">Update</button>
         </form>

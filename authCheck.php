@@ -19,6 +19,9 @@ $isAdmin;
 $isUser;
 if ($logedInUser['role'] == 'admin') {
     $isAdmin=true;
+    $isUser=false;
 } elseif ($logedInUser['role'] == 'user') {
+    $isAdmin=false;
     $isUser=true;
 }
+

@@ -8,7 +8,7 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
   <title>Document</title>
-  <link rel="stylesheet" href="./style.css">
+  <link rel="stylesheet" href="./css/style.css">
 </head>
 
 <body>
@@ -21,9 +21,11 @@ require_once('./session.php');
 $inactive = 15;
 
 //check route
-$route=$_SERVER['REQUEST_URI'];
 
 require_once('./authCheck.php');
+require_once('./route.php');
+require_once('./validation.php');
+
 // logout
 if (isset($_REQUEST['logout'])) {
     $delID= $_REQUEST['logout'];
@@ -43,17 +45,24 @@ if (isset($_REQUEST['logout'])) {
       <div class="collapse navbar-collapse position-relative" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0 ">
           <li class="nav-item">
-            <a class="nav-link <?php echo $route=='/'|| $route=='/index.php'? 'active':'' ;?> "
+            <a class="nav-link <?php echo $route=='home'? 'active':'' ;?> "
               aria-current="page" href="/">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link  <?php echo $route=='/user.php'? 'active':'' ;?>"" aria-current="
+            <a class="nav-link <?php echo $route=='user'? 'active':'' ;?>"
+              aria-current="
               page" href="./user.php">User</a>
           </li>
 
+          <li class="nav-item">
+            <a class="nav-link <?php echo $route=='students'? 'active':'' ;?>"
+              aria-current="
+              page" href="./students.php">Students</a>
+          </li>
+
         </ul>
-        <div onmouseover="openLogout(this)">
-          <a href="#" onmouseout="logoutRemove(this)">
+        <div onclick="openLogout(this)" onmouseleave="logoutRemove(this)">
+          <a href="#">
             <img class="rounded-circle" src="./images/download.png" width="50px" height="50px" alt="">
           </a>
           <div class="logout-div">

@@ -17,7 +17,9 @@
 
 
 <div class="container table-responsive py-5">
-    <a href="./add-user.php" class="btn btn-primary btn-lg add-btn">Add User</a>
+    <div class="text-end my-2">
+        <a href="./add-user.php" class="btn btn-primary btn-lg add-btn">Add User</a>
+    </div>
     <?php
             $sql= 'SELECT id, name, email, phone, gender, dob, role, created_at FROM users  limit 100';
        
