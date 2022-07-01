@@ -15,9 +15,10 @@ require_once('./config.php');
 
   //check unique email
 
-  $sql="SELECT COUNT(email) from users where email='{$email}'" ;
+  $sql="SELECT email from users where email='{$email}'" ;
   $res=mysqli_query($mysql, $sql);
   echo mysqli_num_rows($res);
+  
   if (mysqli_num_rows($res)!=1) {
       $sql="INSERT INTO `users` (`name`, `password`, `email`, `phone`, `dob`, `gender`, `role`)
       VALUES ( '{$name}', '{$password}', '{$email}', '{$phone}', '{$dob}', '{$gender}', '{$role}' )" ;
@@ -34,7 +35,7 @@ require_once('./config.php');
           header("Location: ./registration.php");
       }
   } else {
-      $_SESSION['error']='Email Allready Exist!';
+    //   $_SESSION['error']='Email Allready Exist!';
       $_SESSION['expire'] = time() + $inactive;
       header("Location: ./registration.php");
   }
