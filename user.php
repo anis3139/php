@@ -60,14 +60,14 @@
                 <td><?php echo  $users['created_at' ]?>
                 </td>
                 <td>
-                    <?php  if ($isAdmin): ;?>
+                    <?php  if ($isSuperAdmin): ;?>
                     <a class="text-success"
                         href="./edit-user.php?id=<?php echo $users['id']?>">Edit</a>
                     <?php  endif ;?>
                 </td>
 
                 <td>
-                    <?php  if ($isAdmin): ;?>
+                    <?php  if ($isSuperAdmin): ;?>
 
                     <a onClick="return confirm('Delete This User?')" class="text-danger"
                         href="./user.php?delID=<?php echo $users['id']?> ">Delete</a>
