@@ -8,7 +8,7 @@ $inactive = 5;
         $id=inputValidation($_POST['id']);
         if (strlen($oldPass)>0 && strlen($newPass)>0 && strlen($id)>0) {
             if (strlen($newPass)>5) {
-                $mysql= mysqli_connect('localhost', 'anis', 'password', 'school') or die('Connection Error');
+                 require_once('./config.php');
                 $passwordSql =  "SELECT `password` FROM users WHERE `id`='{$id}' LIMIT 1";
                 $response=mysqli_query($mysql, $passwordSql);
                 if (mysqli_num_rows($response)>0) {

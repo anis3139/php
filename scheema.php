@@ -1,5 +1,5 @@
 <?php
-$mysql= mysqli_connect('localhost', 'anis', 'password', 'school') or die('Connection Error');
+ require_once('./config.php');
 $sql="CREATE TABLE students ( 
     id INT UNSIGNED NOT NULL AUTO_INCREMENT,
     name VARCHAR(100) NOT NULL,

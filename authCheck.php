@@ -1,6 +1,6 @@
 <?php
 //mysql connection
-$mysql= mysqli_connect('localhost', 'anis', 'password', 'school') or die('Connection Error');
+ require_once('./config.php');
 // check valied user
 $isLogin=$_SESSION['login'];
 $token=$_SESSION['token'];

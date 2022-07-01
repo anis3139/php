@@ -1,6 +1,6 @@
 <?php
 require_once('./validation.php');
-  $mysql= mysqli_connect('localhost', 'anis', 'password', 'school') or die('Connection Error');
+   require_once('./config.php');
   $name=inputValidation($_POST['name']);
   $password=password_hash(inputValidation($_POST['password']), PASSWORD_BCRYPT);
   $email=inputValidation($_POST['email']);

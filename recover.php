@@ -20,7 +20,7 @@
     session_start();
     
     $inactive = 5;
-    $mysql= mysqli_connect('localhost', 'anis', 'password', 'school') or die('Connection Error');
+     require_once('./config.php');
 
     if (isset($_SESSION['login']) && $_SESSION['login']=='success') {
         header('location:index.php');

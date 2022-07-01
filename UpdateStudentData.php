@@ -1,5 +1,5 @@
 <?php
-    $mysql= mysqli_connect('localhost', 'anis', 'password', 'school') or die('Connection Error');
+     require_once('./config.php');
     $id=$_POST['id'];
     $name=$_POST['name'];
     $class=$_POST['class'];

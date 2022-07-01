@@ -8,7 +8,7 @@ $inactive = 5;
         $requestPassword=inputValidation($_POST['password']);
         if (strlen($requestEmail)>0 && strlen($requestPassword)>0) {
             if (strlen($requestPassword)>5) {
-                $mysql= mysqli_connect('localhost', 'anis', 'password', 'school') or die('Connection Error');
+                 require_once('./config.php');
                 $newPassword=password_hash($requestPassword, PASSWORD_BCRYPT);
                 $sql =  "UPDATE users SET  `password` = '{$newPassword}' WHERE `email`='{$requestEmail}' AND `phone` = '{$requestPhone}'";
                 $response=mysqli_query($mysql, $sql);
