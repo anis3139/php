@@ -28,7 +28,7 @@ $inactive = 5;
                             header("Location: ./password-reset.php");
                         }
                     } else {
-                        $_SESSION['error']="Password dose not match";
+                        $_SESSION['error']="Old Password dose not match";
                         $_SESSION['expire'] = time() + $inactive;
                         header("Location: ./password-reset.php");
                     }

@@ -24,7 +24,7 @@
             <input type="hidden" name="id"
                 value="<?php echo $logedInUser['id'] ?>">
 
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" class="btn btn-primary">Update</button>
         </form>
     </div>
 </div>
