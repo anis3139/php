@@ -1,9 +1,7 @@
 <?php
 
 require_once('./header2.php');
-    if (isset($_SESSION['login']) && $_SESSION['login']=='success') {
-        header('location:index.php');
-    }
+     
     if (isset($_POST['email']) && isset($_POST['password'])) {
         require_once('./validation.php');
         $email=inputValidation($_POST['email']);
@@ -18,7 +16,7 @@ require_once('./header2.php');
                     $_SESSION['name']=$userResult['name'];
                     $_SESSION['role']=$userResult['role'];
                     $_SESSION['email']=trim($userResult['email']);
-                    $_SESSION['token']=md5($userResult['email']);
+                    $_SESSION['token']=md5(trim($userResult['email']));
                     alertMessage('success', 'Login Successfull');
                     header('location:index.php');
                 } else {

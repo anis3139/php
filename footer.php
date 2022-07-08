@@ -1,8 +1,9 @@
 <?php
-  mysqli_close($mysql);
+ 
   if (isset($_SESSION['error'])) {
       unset($_SESSION["error"]);
   }
+  mysqli_close($mysql);
   ?>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"

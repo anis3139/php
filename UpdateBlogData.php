@@ -4,6 +4,8 @@
     $id=$_POST['id'];
     $title=$_POST['title'];
     $description=$_POST['description'];
+    $oldImg='.'.$_POST['oldImg'];
+    
     $imagePath=null;
     if (isset($_FILES['image'])) {
         $imgName=$_FILES['image']['tmp_name'];
@@ -27,6 +29,9 @@
   
         if (move_uploaded_file($_FILES["image"]["tmp_name"], $path)) {
             $imagePath=substr($path, 1);
+            if (file_exists($oldImg)) {
+                unlink($oldImg);
+            }
         } else {
             $imagePath=null;
         }

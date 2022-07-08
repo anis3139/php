@@ -1,5 +1,4 @@
-<?php
-require_once('./authCheck.php');
+<?php 
 $mysql= mysqli_connect('localhost', 'anis', 'password', 'php') or die('Connection Error');
 
 if (mysqli_connect_errno()) {

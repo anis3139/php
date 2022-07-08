@@ -38,8 +38,9 @@
     <select name="role" required id="role" class="form-control form-field">
         <option value="" selected>--select--</option>
         <option value="user">user</option>
-        <option value="admin">admin</option>
         <option value="editor">editor</option>
+        <option value="admin">admin</option>
+        <option value="super-admin">Super Admin</option>
     </select>
 </div>
 

@@ -24,7 +24,6 @@ require_once('./authCheck.php');
             } else {
                 $_SESSION['login']=false;
                 alertMessage('error', "Password must be mare then 5 carrecter");
-                 
                 header("Location: ./recover.php?email=$requestEmail&phone=$requestPhone");
             }
         }

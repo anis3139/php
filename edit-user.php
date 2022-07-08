@@ -62,7 +62,7 @@ require_once('./header.php');
                     value="<?php echo date('Y-m-j', strtotime($user['dob']));?>"
                     class="form-control" id="dob" name="dob">
             </div>
-
+            
             <div class="mb-2">
                 <label for="role" class="form-label">Role</label>
                 <select name="role" required id="role" class="form-control">
@@ -72,6 +72,8 @@ require_once('./header.php');
                         >admin</option>
                     <option value="editor" <?php echo  $user['role']=='editor'?'selected':''  ;?>
                         >editor</option>
+                    <option value="super-admin" <?php echo  $user['role']=='super-admin'?'selected':''  ;?>
+                        >Super Admin</option>
                 </select>
             </div>
 

@@ -16,6 +16,20 @@ function alertMessage(string $type, string $message):void
     $_SESSION['expire'] = time() + 5;
 }
 
+// alert message destroy by key
+if (isset($_SESSION['expire']) && time() > $_SESSION['expire']) {
+    if (isset($_SESSION['error'])) {
+        unset($_SESSION['error']);
+    }
+    if (isset($_SESSION['success'])) {
+        unset($_SESSION['success']);
+    }
+}
+
+
+
+//WHOLE APPLICATION SESSION DESTROY FOR 2 HOURS
+
 //Set the session duration for 5 seconds
 $duration = 7200;
 
@@ -37,16 +51,11 @@ if (isset($_SESSION['LAST_ACTIVITY']) &&  ($time - $_SESSION['LAST_ACTIVITY']) >
 //Set the time of the user's last activity
 $_SESSION['LAST_ACTIVITY'] = $time;
 
-// alert message destroy by key
-if (isset($_SESSION['expire']) && time() > $_SESSION['expire']) {
-    if (isset($_SESSION['error'])) {
-        unset($_SESSION['error']);
-    }
-    if (isset($_SESSION['success'])) {
-        unset($_SESSION['success']);
-    }
-}
 ?>
+
+
+
+
 
 <!--  alert message destroy all -->
 <script>

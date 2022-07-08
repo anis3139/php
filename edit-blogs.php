@@ -57,6 +57,7 @@ require_once('./header.php');
                     ?>
                     <img width="200px" src="<?php echo $fullPath;?>"
                         alt="">
+                        <input type="hidden" name="oldImg" value="<?php echo $path ?>">
                 </div>
 
             </div>

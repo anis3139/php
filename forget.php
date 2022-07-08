@@ -9,7 +9,7 @@ require_once('./header2.php');
         $email=inputValidation($_POST['email']);
         $phone=inputValidation($_POST['phone']);
         if (strlen($email)>0 && strlen($phone)>0) {
-            $sql= "SELECT * from users  WHERE email='{$email}'  LIMIT 1";
+            $sql= "SELECT * from users  WHERE email='{$email}' AND PHONE ='{$phone}'  LIMIT 1";
             $queryResult=mysqli_query($mysql, $sql) or die('no result found');
             if (mysqli_num_rows($queryResult)>0) {
                 $userResult=mysqli_fetch_assoc($queryResult);

@@ -1,6 +1,5 @@
-<?php
-
-$slug=$_SERVER['DOCUMENT_URI'];
+<?php 
+$slug=$_SERVER['REQUEST_URI'];
 
 $blogRoute=['/blogs.php', '/add-blogs.php', '/edit-blogs.php'];
 $userRoute=['/user.php', '/add-user.php', '/edit-user.php'];
