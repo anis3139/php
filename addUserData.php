@@ -1,14 +1,13 @@
 <?php
 require_once('./validation.php');
    require_once('./config.php');
-   require_once('./authCheck.php');
   $name=inputValidation($_POST['name']);
   $password=password_hash(inputValidation($_POST['password']), PASSWORD_BCRYPT);
   $email=inputValidation($_POST['email']);
   $phone=inputValidation($_POST['phone']);
   $dob=inputValidation($_POST['dob']);
   $gender=inputValidation($_POST['gender']);
-  $role=inputValidation($_POST['role']);
+  $role=isset($_POST['role'])? inputValidation($_POST['role']):'user';
 
   $sql="INSERT INTO `users` (`name`, `password`, `email`, `phone`, `dob`, `gender`, `role`)
                       VALUES ( '{$name}', '{$password}', '{$email}', '{$phone}', '{$dob}', '{$gender}', '{$role}' )" ;

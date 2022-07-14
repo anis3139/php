@@ -37,8 +37,10 @@
                 <th scope="col">Date of birth</th>
                 <th scope="col">Role</th>
                 <th scope="col">Created</th>
+                <?php  if ($isSuperAdmin): ;?>
                 <th scope="col">Edit</th>
                 <th scope="col">Delete</th>
+                <?php  endif  ;?>
             </tr>
         </thead>
         <tbody>
@@ -59,20 +61,20 @@
                 <td><?php echo  $users['role' ]?>
                 <td><?php echo  $users['created_at' ]?>
                 </td>
+                <?php  if ($isSuperAdmin): ;?>
                 <td>
-                    <?php  if ($isSuperAdmin): ;?>
                     <a class="text-success"
                         href="./edit-user.php?id=<?php echo $users['id']?>">Edit</a>
-                    <?php  endif ;?>
                 </td>
+                <?php  endif ;?>
 
+                <?php  if ($isSuperAdmin): ;?>
                 <td>
-                    <?php  if ($isSuperAdmin): ;?>
 
                     <a onClick="return confirm('Delete This User?')" class="text-danger"
                         href="./user.php?delID=<?php echo $users['id']?> ">Delete</a>
-                    <?php  endif ;?>
                 </td>
+                <?php  endif ;?>
 
             </tr>
             <?php
