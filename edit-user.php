@@ -3,7 +3,7 @@ require_once('./header.php');
 if ($_GET['id']!== $logedInUser['id']) {
     alertMessage('error', "Unautherized");
     header("Location: user.php");
-    exit;
+    exit();
 }
 ?>
 

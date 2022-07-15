@@ -10,13 +10,13 @@ require_once('./header.php');
         if (mysqli_num_rows($result)==0):
             alertMessage('error', "Data not Found");
             header("Location: blogs.php");
-            exit;
+            exit();
         else:
             $blog=mysqli_fetch_assoc($result); 
             if ($logedInUser['id']!== $blog['user_id']) {
                 alertMessage('error', "Unautherized");
                 header("Location: blogs.php");
-                exit;
+                exit();
             }
 ?>
 <div class="d-flex gap-3 justify-content-end m-5">

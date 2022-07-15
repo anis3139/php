@@ -4,7 +4,7 @@
      if ($_POST['id']!== $logedInUser['id']) {
         alertMessage('error', "Unautherized");
         header("Location: user.php");
-        exit;
+        exit();
      }
     $id=$_POST['id'];
     $name=$_POST['name'];
