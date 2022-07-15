@@ -13,7 +13,7 @@ session_start();
 function alertMessage(string $type, string $message):void
 {
     $_SESSION[$type]=$message;
-    $_SESSION['expire'] = time() + 5;
+    $_SESSION['expire'] = time() + 3;
 }
 
 // alert message destroy by key

@@ -21,11 +21,26 @@
         <a href="./add-user.php" class="btn btn-primary btn-lg add-btn">Add User</a>
     </div>
     <?php
-            $sql= 'SELECT id, name, email, phone, gender, dob, role, created_at FROM users  limit 100';
-       
-                $result=mysqli_query($mysql, $sql) or die('no result found');
-                if (mysqli_num_rows($result)>0):
-                ?>
+        if (!isset($_GET['page'])) {
+            $page_number = 1;
+        } else {
+            $page_number = $_GET['page'];
+        }
+
+        $limit = 2;
+
+        $initial_page = ($page_number-1) * $limit;
+
+        $sql= "SELECT * FROM users";
+        $result=mysqli_query($mysql, $sql) or die('no result found');
+        $total_rows=mysqli_num_rows($result);
+        $total_pages = ceil($total_rows / $limit);
+
+        if ($total_rows>0):
+            $getQuery = "SELECT *FROM users ORDER BY id DESC LIMIT " . $initial_page . ',' . $limit;
+            $resultUsers = mysqli_query($mysql, $getQuery);
+     
+        ?>
     <table class="table table-bordered table-hover">
         <thead class="thead-dark">
             <tr>
@@ -46,7 +61,7 @@
         <tbody>
             <?php
               
-                while ($users=mysqli_fetch_assoc($result)) :
+                while ($users=mysqli_fetch_assoc($resultUsers)) :
             ?>
             <tr>
                 <td scoppe='row'><?php echo $users['id'];?>
@@ -83,6 +98,49 @@
             ?>
         </tbody>
     </table>
+
+    <!-- pagination  -->
+    <div class="items ">
+        <?php
+
+            $pageURL = "";
+
+            if ($page_number>=2) {
+                echo "<a  href='user.php?page=".($page_number-1)."'>  Prev </a>";
+            }
+
+            for ($i=1; $i<=$total_pages; $i++) {
+                if ($i == $page_number) {
+                    $pageURL .= "<a   class = 'active' href='user.php?page="
+
+                                                    .$i."'>".$i." </a>";
+                } else {
+                    $pageURL .= "<a  href='user.php?page=".$i."'>   
+
+                                                    ".$i." </a>";
+                }
+            };
+
+            echo $pageURL;
+
+            if ($page_number<$total_pages) {
+                echo "<a  href='user.php?page=".($page_number+1)."'>  Next </a>";
+            }
+
+            ?>
+
+    </div>
+
+    <div class="inline">
+
+        <input id="page" type="number" min="1"
+            max="<?php echo $total_pages?>"
+            placeholder="<?php echo $page_number."/".$total_pages; ?>"
+            required>
+
+        <button onClick="go2Page('user');">Go</button>
+
+    </div>
     <?php  else: ;?>
     <h1>No Data Found</h1>
     <?php endif ?>

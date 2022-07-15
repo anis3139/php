@@ -25,10 +25,25 @@
         <a href="./add-blogs.php" class="btn btn-primary btn-lg add-btn">Add Blog</a>
     </div>
     <?php
-            $sql= "SELECT * FROM blogs WHERE `user_id`='{$logedInUser['id']}' ORDER BY id DESC limit 100";
-                $result=mysqli_query($mysql, $sql) or die('no result found');
-                if (mysqli_num_rows($result)>0):
-                ?>
+        if (!isset($_GET['page'])) {
+            $page_number = 1;
+        } else {
+            $page_number = $_GET['page'];
+        }
+
+        $limit = 2;
+ 
+        $initial_page = ($page_number-1) * $limit;
+
+        $sql= "SELECT * FROM blogs WHERE `user_id`='{$logedInUser['id']}'";
+        $result=mysqli_query($mysql, $sql) or die('no result found');
+        $total_rows=mysqli_num_rows($result);
+        $total_pages = ceil($total_rows / $limit);
+
+        if ($total_rows>0):
+            $getQuery = "SELECT *FROM blogs WHERE `user_id`='{$logedInUser['id']}' ORDER BY id DESC LIMIT " . $initial_page . ',' . $limit;
+            $resultBlog = mysqli_query($mysql, $getQuery);
+    ?>
     <table class="table table-bordered table-hover">
         <thead class="thead-dark">
             <tr>
@@ -42,8 +57,8 @@
         </thead>
         <tbody>
             <?php
-              
-                while ($blogs=mysqli_fetch_assoc($result)) :
+               
+                while ($blogs=mysqli_fetch_assoc($resultBlog)) :
             ?>
             <tr>
                 <td scoppe='row'><?php echo $blogs['id'];?>
@@ -72,16 +87,62 @@
             </tr>
             <?php
                 endwhile;
-             
+                
             ?>
         </tbody>
     </table>
-    <?php  else: ;?>
+
+    <!-- pagination  -->
+    <div class="items ">
+        <?php
+
+            $pageURL = "";
+
+            if ($page_number>=2) {
+                echo "<a  href='blogs.php?page=".($page_number-1)."'>  Prev </a>";
+            }
+
+            for ($i=1; $i<=$total_pages; $i++) {
+                if ($i == $page_number) {
+                    $pageURL .= "<a   class = 'active' href='blogs.php?page="
+
+                                                    .$i."'>".$i." </a>";
+                } else {
+                    $pageURL .= "<a  href='blogs.php?page=".$i."'>   
+
+                                                    ".$i." </a>";
+                }
+            };
+
+            echo $pageURL;
+
+            if ($page_number<$total_pages) {
+                echo "<a  href='blogs.php?page=".($page_number+1)."'>  Next </a>";
+            }
+
+            ?>
+
+    </div>
+
+    <div class="inline">
+
+        <input id="page" type="number" min="1"
+            max="<?php echo $total_pages?>"
+            placeholder="<?php echo $page_number."/".$total_pages; ?>"
+            required>
+
+        <button onClick="go2Page('blogs');">Go</button>
+
+    </div>
+
+
+    <?php else: ;?>
     <h1>No Data Found</h1>
     <?php endif ?>
 </div>
 
+
 <?php
   require_once('./footer.php')
   ?>
-<!-- end file -->
+<!-- end line  -->
