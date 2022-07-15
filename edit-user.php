@@ -1,5 +1,10 @@
 <?php
 require_once('./header.php');
+if ($_GET['id']!== $logedInUser['id']) {
+    alertMessage('error', "Unautherized");
+    header("Location: user.php");
+    exit;
+}
 ?>
 
 
@@ -62,7 +67,7 @@ require_once('./header.php');
                     value="<?php echo date('Y-m-j', strtotime($user['dob']));?>"
                     class="form-control" id="dob" name="dob">
             </div>
-            
+
             <div class="mb-2">
                 <label for="role" class="form-label">Role</label>
                 <select name="role" required id="role" class="form-control">

@@ -5,12 +5,19 @@ require_once('./header.php');
 
 <?php
         $id=$_GET['id'];
-        $sql= "SELECT * FROM blogs WHERE `id` = '$id'";
+        $sql= "SELECT * FROM blogs WHERE `id` = '$id' LIMIT 1";
         $result=mysqli_query($mysql, $sql) or die('no result found');
         if (mysqli_num_rows($result)==0):
-                header("Location: blogs.php");
+            alertMessage('error', "Data not Found");
+            header("Location: blogs.php");
+            exit;
         else:
-            $blog=mysqli_fetch_assoc($result);
+            $blog=mysqli_fetch_assoc($result); 
+            if ($logedInUser['id']!== $blog['user_id']) {
+                alertMessage('error', "Unautherized");
+                header("Location: blogs.php");
+                exit;
+            }
 ?>
 <div class="d-flex gap-3 justify-content-end m-5">
 
@@ -57,7 +64,8 @@ require_once('./header.php');
                     ?>
                     <img width="200px" src="<?php echo $fullPath;?>"
                         alt="">
-                        <input type="hidden" name="oldImg" value="<?php echo $path ?>">
+                    <input type="hidden" name="oldImg"
+                        value="<?php echo $path ?>">
                 </div>
 
             </div>

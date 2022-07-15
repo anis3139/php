@@ -8,7 +8,8 @@ if (isset($_SESSION['success'])) {
 }
 ?>
 <script>
-    window.location = document.referrer;
+    let result = document.referrer.split("?");
+    window.location = result[0];
 </script>
 <?php
 

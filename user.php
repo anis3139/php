@@ -2,13 +2,17 @@
     require_once('./header.php');
    
     if (isset($_REQUEST['delID'])) {
-        $delID= $_REQUEST['delID'];
-        $name= $_REQUEST['name'];
-        
-        $delSql="DELETE FROM users WHERE id={$delID}";
-        $res= mysqli_query($mysql, $delSql);
-        if ($res) {
-            header("Location: ./user.php");
+        if ($_REQUEST['delID']==$logedInUser['id'] || $isSuperAdmin) {
+            $delID= $_REQUEST['delID'];
+            $name= $_REQUEST['name'];
+            
+            $delSql="DELETE FROM users WHERE id={$delID}";
+            $res= mysqli_query($mysql, $delSql);
+            if ($res) {
+                header("Location: ./user.php");
+            }
+        } else {
+            alertMessage('error', "Unautherized");
         }
     }
 
@@ -17,6 +21,7 @@
 
 
 <div class="container table-responsive py-5">
+    <?php  include('./errorMessage.php') ;?>
     <div class="text-end my-2">
         <a href="./add-user.php" class="btn btn-primary btn-lg add-btn">Add User</a>
     </div>
@@ -52,8 +57,8 @@
                 <th scope="col">Date of birth</th>
                 <th scope="col">Role</th>
                 <th scope="col">Created</th>
-                <?php  if ($isSuperAdmin): ;?>
                 <th scope="col">Edit</th>
+                <?php  if ($isSuperAdmin): ;?>
                 <th scope="col">Delete</th>
                 <?php  endif  ;?>
             </tr>
@@ -76,7 +81,7 @@
                 <td><?php echo  $users['role' ]?>
                 <td><?php echo  $users['created_at' ]?>
                 </td>
-                <?php  if ($isSuperAdmin): ;?>
+                <?php  if ($isSuperAdmin || $users['id']== $logedInUser['id']): ;?>
                 <td>
                     <a class="text-success"
                         href="./edit-user.php?id=<?php echo $users['id']?>">Edit</a>

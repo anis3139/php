@@ -33,7 +33,7 @@
                 unlink($oldImg);
             }
         } else {
-            $imagePath=null;
+            $imagePath=substr($oldImg, 1);
         }
     }
 

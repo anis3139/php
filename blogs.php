@@ -20,7 +20,7 @@
 
 
 <div class="container table-responsive py-5">
-
+    <?php  include('./errorMessage.php') ;?>
     <div class="text-end my-2">
         <a href="./add-blogs.php" class="btn btn-primary btn-lg add-btn">Add Blog</a>
     </div>

@@ -1,6 +1,11 @@
 <?php
      require_once('./config.php');
      require_once('./authCheck.php');
+     if ($_POST['id']!== $logedInUser['id']) {
+        alertMessage('error', "Unautherized");
+        header("Location: user.php");
+        exit;
+     }
     $id=$_POST['id'];
     $name=$_POST['name'];
     $phone=$_POST['phone'];
