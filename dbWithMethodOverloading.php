@@ -2,6 +2,7 @@
 class Db
 {
     private $conn;
+    private $table;
     public function __construct($host, $user, $pass, $db)
     {
         $this->conn=new mysqli($host, $user, $pass, $db);
@@ -9,19 +10,28 @@ class Db
             die("Connection Fail for: ".$this->conn->connect_error);
         }
     }
+
+
+    
+    public function table($value)
+    {
+        $this->table=$value;
+        return $this;
+    }
+
     public function __call($method, $params)
     {
         extract($params[0]);
-        switch ($action) {
+        switch ($method) {
             case "read":
                 if (isset($where)) {
-                    $sql="SELECT $cols FROM $table WHERE $where";
+                    $sql="SELECT $cols FROM $this->table WHERE $where";
                     $result=$this->conn->query($sql);
                     if ($result->num_rows>0) {
                         return $result->fetch_assoc();
                     }
                 } else {
-                    $sql="SELECT $cols FROM $table";
+                    $sql="SELECT $cols FROM $this->table";
                     $result=$this->conn->query($sql);
                     if ($result->num_rows>0) {
                         return $result->fetch_all(MYSQLI_ASSOC);
@@ -29,21 +39,21 @@ class Db
                 }
                 break;
             case "insert":
-                $sql="INSERT INTO $table SET $cols";
+                $sql="INSERT INTO $this->table SET $cols";
                 $result=$this->conn->query($sql);
                 if ($this->conn->affected_rows>0) {
                     return true;
                 }
                 break;
             case "update":
-                $sql="UPDATE $table SET $cols WHERE $where";
+                $sql="UPDATE $this->table SET $cols WHERE $where";
                 $result=$this->conn->query($sql);
                 if ($this->conn->affected_rows>0) {
                     return true;
                 }
                 break;
             case "delete":
-                $sql="DELETE FROM $table WHERE $where";
+                $sql="DELETE FROM $this->table WHERE $where";
                 $result=$this->conn->query($sql);
                 if ($this->conn->affected_rows>0) {
                     return true;
@@ -70,6 +80,6 @@ echo "<pre>";
 // echo $connect->removeData(array("table"=>"users","action"=>"delete","where"=>"id=9"))?"Delete Success":"Delete Fail";
 
 
-print_r($connect->read(array("table"=>"users","cols"=>"*","action"=>"read")));
+print_r($connect->table('users')->read(["cols"=>"*"]));
 
 echo "</pre>";
