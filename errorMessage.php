@@ -2,7 +2,7 @@
     <div class="col-md-8 offset-md-2 error-div mt-3">
         <?php
             if (isset($_SESSION['error'])):
-                                        ?>
+                ?>
         <div class="alert alert-warning alert-dismissible fade show" role="alert">
             <strong>Error!</strong> <?php  echo  $_SESSION['error']; ?>
             <button type="button" class="btn-close" onclick="closeAlert()"></button>
@@ -13,6 +13,14 @@
             <button type="button" class="btn-close" onclick="closeAlert()"></button>
         </div>
         <?php
-            endif;?>
+        endif;?>
     </div>
 </div>
+<script>
+    let errDivRemove = document.querySelector(".error-div");
+    if (errDivRemove) {
+        setTimeout(() => {
+            errDivRemove.style.display = 'none'
+        }, 3000)
+    }
+</script>
