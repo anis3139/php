@@ -1,48 +1,30 @@
 <?php
 namespace Anis3139\Php\Database;
 
+use Anis3139\Php\Database\Connection;
+
 class DB
 {
     public $conn;
     public static $sql;
-    public static $instance=null;
+    public static $table;
+    
     public function __construct()
     {
-        define("HOST", "localhost");
-        define("USER", "anis");
-        define("PASSWORD", "password");
-        define("DB", "php");
-        $this->conn = mysqli_connect(HOST, USER, PASSWORD, DB);
-        if (mysqli_connect_error()) {
-            trigger_error(
-                "Failed to conencto to MySQL: " . mysqli_connect_error(),
-                E_USER_ERROR
-            );
-        }
+        $connection=new Connection();
+        $connectinClass=$connection::init();
+        $this->conn=$connectinClass->connection;
     }
 
-    /**
-     * sengelton design pattern
-     *
-     * @return void
-     */
-    public static function getInstance()
+     
+    public static function table($table)
     {
-        if (is_null(self::$instance)) {
-            self::$instance = new DB;
-        }
-        return self::$instance;
+        self::$table = $table;
+        return new self;
     }
 
-    /**
-     * Query the database
-     *
-     * @param [type] $table
-     * @param array $condition
-     * @param array $field
-     * @return void
-     */
-    public function select($table, $condition=array(), $field = array())
+     
+    public function get($condition=array(), $field = array())
     {
         $where='';
         if (!empty($condition)) {
@@ -51,7 +33,7 @@ class DB
             }
             $where='where '.$where .'1=1';
         }
-
+       
         $fieldstr = '';
 
         if (!empty($field)) {
@@ -63,7 +45,7 @@ class DB
             $fieldstr = '*';
         }
 
-        self::$sql = "select {$fieldstr} from {$table} {$where}";
+        self::$sql = "select {$fieldstr} from ". self::$table ." {$where}";
         $result=mysqli_query($this->conn, self::$sql);
 
         $resuleRow = array();
@@ -77,14 +59,48 @@ class DB
         }
         return $resuleRow;
     }
-    /**
-     * insert data
-     *
-     * @param [type] $table
-     * @param [type] $data
-     * @return void
-     */
-    public function insert($table, $data)
+
+
+    public function find($condition, $field = array())
+    {
+        $where='';
+        if (is_array($condition)) {
+            foreach ($condition as $k=>$v) {
+                $where.=$k."='".$v."' and ";
+            }
+            $where='where '.$where .'1=1';
+        } else {
+            $where="where id='{$condition}'";
+        }
+
+        $fieldstr = '';
+
+        if (!empty($field)) {
+            foreach ($field as $k=>$v) {
+                $fieldstr.= $v.',';
+            }
+            $fieldstr = rtrim($fieldstr, ',');
+        } else {
+            $fieldstr = '*';
+        }
+
+        self::$sql = "select {$fieldstr} from ". self::$table ." {$where} LIMIT 1";
+        $result=mysqli_query($this->conn, self::$sql);
+
+        $resuleRow = array();
+
+        $i = 0;
+        while ($row=mysqli_fetch_assoc($result)) {
+            foreach ($row as $k=>$v) {
+                $resuleRow[$i][$k] = $v;
+            }
+            $i++;
+        }
+        return $resuleRow ? $resuleRow[0] : false;
+    }
+
+     
+    public function insert($data)
     {
         $keys = '';
         $values = '';
@@ -97,55 +113,60 @@ class DB
         $keys = rtrim($keys, ',');
         $values  = rtrim($values, ',');
           
-        self::$sql = "INSERT INTO {$table} ({$keys}) VALUES ({$values})";
+        self::$sql = "INSERT INTO ". self::$table ." ({$keys}) VALUES ({$values})";
        
         if (mysqli_query($this->conn, self::$sql)) {
             $id= mysqli_insert_id($this->conn);
-            $result=$this->select('blogs', array('id'=>$id));
+            $result=$this->get(array('id'=>$id));
             return $result[0];
         } else {
-            return false;
+            return 'Something went wrong!';
         };
     }
-    /**
-    * Modify a record
-    */
-    public function update($table, $data, $condition=array())
+    
+    public function update($data, $condition=array())
     {
         $where='';
+
         if (!empty($condition)) {
             foreach ($condition as $k=>$v) {
                 $where.=$k."='".$v."' and ";
             }
             $where='where '.$where .'1=1';
         }
+
         $updatastr = '';
+
         if (!empty($data)) {
             foreach ($data as $k=>$v) {
                 $updatastr.= $k."='".$v."',";
             }
             $updatastr = 'set '.rtrim($updatastr, ',');
         }
-        self::$sql = "update {$table} {$updatastr} {$where}";
-        return mysqli_query($this->conn, self::$sql);
+        self::$sql = "update ". self::$table ." {$updatastr} {$where}";
+         
+        if (mysqli_query($this->conn, self::$sql)) {
+            $result=$this->get($condition);
+            return $result[0];
+        } else {
+            return 'Something went wrong!';
+        }
     }
-    /**
-     * Delete records
-     */
-    public function delete($table, $condition)
+    
+    
+    public function delete($condition)
     {
         $where='';
+
         if (!empty($condition)) {
             foreach ($condition as $k=>$v) {
                 $where.=$k."='".$v."' and ";
             }
             $where='where '.$where .'1=1';
         }
-        self::$sql = "delete from {$table} {$where}";
+
+        self::$sql = "delete from ". self::$table ." {$where}";
+
         return mysqli_query($this->conn, self::$sql);
-    }
-    public static function getLastSql()
-    {
-        echo self::$sql;
     }
 }

@@ -1,10 +1,10 @@
 <?php
 namespace Anis3139\Php;
 
-class Contacts
+class Blogs
 {
     public function hello()
     {
-        echo 'Contacts'."<br>";
+        echo 'Blogs'."<br>";
     }
 }

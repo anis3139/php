@@ -1,38 +1,39 @@
 <?php
 
-use Anis3139\Php\Contacts;
 use Anis3139\Php\Database\DB;
-use Anis3139\Php\Database\Seed\Seeder;
-use Anis3139\Php\Users;
 
 require_once __DIR__ . '/vendor/autoload.php';
 
-$contancts= new Contacts();
-$contancts->hello();
+$user = DB::table('blogs')->get();
+echo '<pre>';
+print_r($user);
+echo '</pre>';
 
-$user=new Users();
-$user->hello();
+// $user = DB::table('blogs')->find(43);
+// echo '<pre>';
+// print_r($user);
+// echo '</pre>';
 
-$seeder=new Seeder();
-$seeder->hello();
+// $newData= DB::table('blogs')->insert([
+//         'title'=>'test title',
+//         'description'=>'description',
+//         'image'=>'/images/blog/1657777729.jpg',
+//         'user_id'=>'1'
+//     ]);
 
-$db = DB::getInstance();
+// echo '<pre>';
+// print_r($newData);
+// echo '</pre>';
 
-// $users = $db->select('users');
-// $blogs = $db->select('blogs');
-// echo '<pre>';  print_r($blogs); echo '</pre>';
+// $update= DB::table('blogs')->update(
+//             [
+//                 "title"=>'edited',
+//                 "description"=>'123'
+//             ],
+//             [
+//                 'id'=>43
+//             ]
+//         );
+// echo '<pre>';  print_r($update); echo '</pre>';
 
-// $newData= $db->insert('blogs', array ('title'=>'test title','description'=>'description','image'=>'/images/blog/1657777729.jpg','user_id'=>'1', ));
-
-// echo '<pre>';  print_r($newData); echo '</pre>';
-
-//  echo $db->update('blogs',array("title"=>'edited',"description"=>'123'),array('id'=>28));
-
-//  echo $db->delete('blogs', array('id'=>'22'));  
-
-
-// $list = $db->select('users', array('name'=>'tom','password'=>'ds'),array('name','password'));
-
-
-
- 
+// echo DB::table('users')->delete(array('id'=>'22'));
