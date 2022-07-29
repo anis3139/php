@@ -4,10 +4,10 @@ use Anis3139\Php\Database\DB;
 use Dotenv\Dotenv;
 
 require_once __DIR__ . '/vendor/autoload.php';
-$dotenv = Dotenv::createImmutable(__DIR__);
-$dotenv->load();
 
- 
+$dotenv = Dotenv::createImmutable(__DIR__);
+$dotenv->safeLoad(); 
+
 $user = DB::table('blogs')->get();
 echo '<pre>';
 print_r($user);
