@@ -1,6 +1,20 @@
 {
-    "require": {
-        "stripe/stripe-php": "^8.4",
-        "vlucas/phpdotenv": "^5.4"
+  "name": "anis3139/php",
+  "description": "test project",
+  "type": "plugin",
+  "autoload": {
+    "psr-4": {
+      "Anis3139\\Php\\": "src/"
     }
+  },
+  "authors": [
+    {
+      "name": "Md. Anichur Rahaman",
+      "email": "38912435+anis3139@users.noreply.github.com"
+    }
+  ],
+  "require": {
+    "vlucas/phpdotenv": "^5.4",
+    "stripe/stripe-php": "^8.12"
+  }
 }
