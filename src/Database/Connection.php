@@ -3,16 +3,12 @@ namespace Anis3139\Php\Database;
 
 class Connection
 {
-    private $host= "localhost";
-    private $username= "anis";
-    private $password= "password";
-    private $db= "php";
     public static $instance=null;
     public $connection;
 
     public function __construct()
     {
-        $this->connection = mysqli_connect($this->host, $this->username, $this->password, $this->db);
+        $this->connection = mysqli_connect($_ENV['DB_HOST'], $_ENV['DB_USERNAME'], $_ENV['DB_PASSWORD'], $_ENV['DB_DATABASE']);
         if (mysqli_connect_error()) {
             trigger_error(
                 "Failed to conencto to MySQL: " . mysqli_connect_error(),
