@@ -1,38 +1,104 @@
 <?php
 
-use Anis3139\Php\Contacts;
-use Anis3139\Php\Database\DB;
-use Anis3139\Php\Database\Seed\Seeder;
-use Anis3139\Php\Users;
+/**
+ * class
+ * final keyword
+ * static method and scope
+ * static method and relation with child
+ * static property and child class behavior
+ * constant
+ * interface
+ * abstruct class
+ * trait
+ * method overrite
+ * object chaining
+ * Expception handaling
+ */
 
-require_once __DIR__ . '/vendor/autoload.php';
+interface intClass
+{
+    public function sayHi();
+}
 
-$contancts= new Contacts();
-$contancts->hello();
+interface intClass2
+{
+    public function sayHello();
+}
 
-$user=new Users();
-$user->hello();
-
-$seeder=new Seeder();
-$seeder->hello();
-
-$db = DB::getInstance();
-
-// $users = $db->select('users');
-// $blogs = $db->select('blogs');
-// echo '<pre>';  print_r($blogs); echo '</pre>';
-
-// $newData= $db->insert('blogs', array ('title'=>'test title','description'=>'description','image'=>'/images/blog/1657777729.jpg','user_id'=>'1', ));
-
-// echo '<pre>';  print_r($newData); echo '</pre>';
-
-//  echo $db->update('blogs',array("title"=>'edited',"description"=>'123'),array('id'=>28));
-
-//  echo $db->delete('blogs', array('id'=>'22'));  
+trait common
+{
+    public function error()
+    {
+        echo "something wrong";
+    }
+}
 
 
-// $list = $db->select('users', array('name'=>'tom','password'=>'ds'),array('name','password'));
+class Test
+{
+    use common;
+    public const AGE=23;
+    public static $name; //property
 
+    public function __construct($n)
+    {
+        // $this->name=$n;
+    }
 
+    public function sayHi() //method
+    {
+        echo"hello\n";
+    }
 
- 
+    public function sayHello()
+    {
+        if (self::AGE!==23) {
+            throw new \Exception("Value must 23");
+        }
+        echo self::AGE;
+    }
+
+    public static function sayStatic()
+    {
+        self::$name="static property";
+        echo "hey";
+    }
+
+    public function chaining($n)
+    {
+        echo $n;
+        return $this;
+    }
+
+    public function chaining2($m)
+    {
+        echo $m;
+        return $this;
+    }
+}
+
+class Child implements intClass2
+{
+    use common;
+    public const AGE=30;
+
+    public function sayHello()
+    {
+        echo self::AGE;
+    }
+}
+
+$test=new Test('kjsdfn');
+$test->sayHello();
+
+// echo Test::AGE;
+
+// $child= new Child('shakil');
+// $child->sayHi();
+// $child->sayHi();
+// $child->sayHi();
+// $child->sayHi();
+// $child->sayHi();
+// $child->sayHi();
+// $test=new Test('new name');
+// echo $test->name;
