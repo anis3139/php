@@ -1,0 +1,19 @@
+{
+    "name": "wedevsw/php",
+    "type": "project",
+    "license": "mt2",
+    "autoload": {
+        "psr-4": {
+            "Wedevsw\\Php\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Md. Anichur Rahaman",
+            "email": "38912435+anis3139@users.noreply.github.com"
+        }
+    ],
+    "require": {
+        "guzzlehttp/guzzle": "^7.0"
+    }
+}
