@@ -1,6 +1,6 @@
 <?php
 $host = "localhost";
-$user = "anis";
+$user = "root";
 $password = "password";
 $db = "pdo";
  
