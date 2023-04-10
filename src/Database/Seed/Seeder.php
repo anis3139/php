@@ -1,5 +1,6 @@
 <?php
-namespace Anis3139\Php\Database\Seed;
+
+namespace AnisAronno\Php\Database\Seed;
 
 class Seeder
 {

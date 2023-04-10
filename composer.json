@@ -1,16 +1,16 @@
 {
-  "name": "anis3139/php",
+  "name": "anisaronno/php",
   "description": "test project",
   "type": "plugin",
   "autoload": {
     "psr-4": {
-      "Anis3139\\Php\\": "src/"
+      "AnisAronno\\Php\\": "src/"
     }
   },
   "authors": [
     {
       "name": "Md. Anichur Rahaman",
-      "email": "38912435+anis3139@users.noreply.github.com"
+      "email": "38912435+AnisAronno@users.noreply.github.com"
     }
   ],
   "require": {

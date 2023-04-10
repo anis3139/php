@@ -1,14 +1,15 @@
 <?php
-namespace Anis3139\Php\Database;
 
-use Anis3139\Php\Database\Connection;
+namespace AnisAronno\Php\Database;
+
+use AnisAronno\Php\Database\Connection;
 
 class DB
 {
     public $conn;
     public static $sql;
     public static $table;
-    
+
     public function __construct()
     {
         $connection=new Connection();
@@ -16,14 +17,14 @@ class DB
         $this->conn=$connectinClass->connection;
     }
 
-     
+
     public static function table($table)
     {
         self::$table = $table;
-        return new self;
+        return new self();
     }
 
-     
+
     public function get($condition=array(), $field = array())
     {
         $where='';
@@ -33,7 +34,7 @@ class DB
             }
             $where='where '.$where .'1=1';
         }
-       
+
         $fieldstr = '';
 
         if (!empty($field)) {
@@ -99,7 +100,7 @@ class DB
         return $resuleRow ? $resuleRow[0] : false;
     }
 
-     
+
     public function insert($data)
     {
         $keys = '';
@@ -112,9 +113,9 @@ class DB
 
         $keys = rtrim($keys, ',');
         $values  = rtrim($values, ',');
-          
+
         self::$sql = "INSERT INTO ". self::$table ." ({$keys}) VALUES ({$values})";
-       
+
         if (mysqli_query($this->conn, self::$sql)) {
             $id= mysqli_insert_id($this->conn);
             $result=$this->get(array('id'=>$id));
@@ -123,7 +124,7 @@ class DB
             return 'Something went wrong!';
         };
     }
-    
+
     public function update($data, $condition=array())
     {
         $where='';
@@ -144,7 +145,7 @@ class DB
             $updatastr = 'set '.rtrim($updatastr, ',');
         }
         self::$sql = "update ". self::$table ." {$updatastr} {$where}";
-         
+
         if (mysqli_query($this->conn, self::$sql)) {
             $result=$this->get($condition);
             return $result[0];
@@ -152,8 +153,8 @@ class DB
             return 'Something went wrong!';
         }
     }
-    
-    
+
+
     public function delete($condition)
     {
         $where='';

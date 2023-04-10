@@ -1,5 +1,6 @@
 <?php
-namespace Anis3139\Php\Database;
+
+namespace AnisAronno\Php\Database;
 
 class Connection
 {
@@ -20,7 +21,7 @@ class Connection
     public static function init()
     {
         if (is_null(self::$instance)) {
-            self::$instance = new Connection;
+            self::$instance = new Connection();
         }
 
         return self::$instance;

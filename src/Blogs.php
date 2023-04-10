@@ -1,5 +1,6 @@
 <?php
-namespace Anis3139\Php;
+
+namespace AnisAronno\Php;
 
 class Blogs
 {
